@@ -3,16 +3,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-   return'hello world'
-
-@app.route('/result',methods = ['POST', 'GET'])
-def result():
-   return 'result'
-
+   return 'hello world'
 
 @app.route('/hello/<name>')
-def hello(name):
-	return 'Hello {}'.format(name)
+def hello_name(name):
+	return 'hello {}'.format(name)
+
 
 if __name__ == '__main__':
    app.run(debug = True)
