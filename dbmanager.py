@@ -1,6 +1,9 @@
 import pypyodbc
 
+
 class DBManager:
+
+
 	def __init__(self):
 		try:
 			self.conn = pypyodbc.connect(
@@ -10,15 +13,24 @@ class DBManager:
    				 r'UID=omarsgalal;'
    				 r'PWD=123456Omar'
     			 )
+    			 
+            #self.conn = pypyodbc.connect(Trusted_Connection='yes', driver = '{SQL Server}',server = 'LAPTOP-HG7BB9JM' , database = 'WareHubDB')	 
 			self.cursor = conn.cursor()
 		except:
 			pass
+	
 
 
-	def executeCommand(self, query):
-		self.data = cursor.execute(query)
+	def executeQuery(self, query):
+		self.data = self.cursor.execute(query)
+		self.data = self.data.fetchall()
+		return self.data
+
+	def executeNonQuery(self, query):
+		self.cursor.execute(query)
 		self.conn.commit()
 
 
 	def closeConnection(self):
 		self.conn.close()
+
