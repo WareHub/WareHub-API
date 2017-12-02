@@ -1,8 +1,7 @@
+import user
 
-import userClass
 
-
-class technician(userClass.users):
+class Technician(user.User):
     def add_device(id, dtype, location, state, tech_id, *args) :
         query = "insert into DEVICE(ID,DTYPE,LOCATION,STAT,OVERALL_REVIEW,NUM_REVIEWS,TECH_ID) Values(" + str(id) + "," +str(dtype)+ ","+str(location) + "," + str(state)+","+  str(0) + "," + str(0) + "," + str(tech_id) + ")"
         print(query)
