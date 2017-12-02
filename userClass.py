@@ -63,4 +63,49 @@ def getReviewsDevice(id):
 	data = manager.executeQuery(query)
 	return json.dumps(data)
 
+#this function checks if password is ture of false
+def login(id, password):
+	manager = DBManager()
+	query = 'select PASS from USERS where ID = {}'.format(id)
+	data = manager.executeQuery(query)
+	hashpass = data.fetchall()[0][0]
+	if scrypt.verify(password, hashpass):
+		return json.dumps(True)
+	else:
+		return json.dumps(False)
 
+
+#this function updates user's info
+def updateInfo(type, id, password, phone):
+
+	manager = DBManager()
+	hashpass = scrypt.encrypt(password)
+
+	query2 = "update USERS set PASS = '{}' where ID = {}".format(hashpass, id)	
+	setquery = "set PHONE = {} where ID = {}".format(phone, id)
+	#manager
+	if type == 0:
+		query1 = "update MANAGER " + setquery
+		
+	#student
+	elif type == 1:
+		query1 = "update STUDENT " + setquery
+
+	#technician
+	else:
+		query1 = "update TECHNICIAN " + setquery
+
+	manager.executeNonQuery(query2)
+	manager.executeNonQuery(query1)
+
+
+
+#this function updates points of students or techs
+def updatePoints(type, id, points):
+	manager = DBManager()
+	if type == 0:
+		query = 'update STUDENT '
+	else:
+		query = 'update TECHNICIAN '
+	query += 'set POINTS = {} where ID = {}'.format(points, id)
+	manager.executeNonQuery(query)
