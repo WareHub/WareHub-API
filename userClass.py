@@ -37,3 +37,30 @@ class users:
         check="where ID>{} and ID<{}".format(type*1000000,(type+1)*1000000)
         query="select * from DEVICE D join PCS P on P.ID = D.ID {} order by D.overall_review/D.Num_reviews, D.ID".format(check)
         return db.executeQuery(query)
+    
+    
+    
+    #this function adds a review to the database
+def insertReview(sid, deviceid, opinion, rate):
+	manager = DBManager()
+	date = manager.executeQuery('select GETDATE()')
+	query = "insert into REVIEW (STUDENT_ID, DEVICE_ID, R_TIME, OPINION, RATE) values ({}, {}, {}, '{}', {})".format(sid, deviceid, date, opinion, rate)
+	manager.executeNonQuery(query)
+
+
+#this function retreives the reviews of devices and returns it in json string
+def getReviews():
+	manager = DBManager()
+	query = 'select * from REVIEW'
+	data = manager.executeQuery(query)
+	return json.dumps(data)
+
+
+#this function retreives the reviews of a specefic device
+def getReviewsDevice(id):
+	manager = DBManager()
+	query = 'select * from REVIEW where DEVICE_ID = {}'.format(id)
+	data = manager.executeQuery(query)
+	return json.dumps(data)
+
+
