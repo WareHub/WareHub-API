@@ -116,3 +116,15 @@ def updateInfo(type, id, password, phone):
 
 	manager.executeNonQuery(query2)
 	manager.executeNonQuery(query1)
+
+
+
+#this function updates points of students or techs
+def updatePoints(type, id, points):
+	manager = DBManager()
+	if type == 0:
+		query = 'update STUDENT '
+	else:
+		query = 'update TECHNICIAN '
+	query += 'set POINTS = {} where ID = {}'.format(points, id)
+	manager.executeNonQuery(query)
