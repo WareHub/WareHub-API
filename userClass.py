@@ -11,7 +11,7 @@ class users:
         for key in kwargs:
             seted+="{}={}".format(key,kwargs[key])
         query="UPDATE {} Set {} Where ID={}".format(table,seted,ID)
-        return db.executeCommand(query)
+        db.executeCommand(query)
     
     def retrive_devices(self,type):
         #type of devicea assumed that type is number
@@ -22,6 +22,7 @@ class users:
         check="where ID>{} and ID<{}".format(type*10000000,(type+1)*10000000)
         query="select * from DEVICE D {} order by D.overall_review/D.Num_reviews".format(check)
         table=db.executeCommand(query)
+        table=table.fetchall()
         return json.dumps(table)
 
 
@@ -31,6 +32,7 @@ class users:
         check="where D.ID>{} and D.ID<{}".format(type*10000000,(type+1)*10000000)
         query="select * from DEVICE D join ICS I join IC_TYPE T on T.code=I.code on I.ID=D.ID {} order by D.overall_review/D.Num_reviews".format(check)
         table=db.executeCommand(query)
+        table=table.fetchall()
         return json.dumps(table)
 
         
@@ -40,4 +42,5 @@ class users:
         check="where ID>{} and ID<{}".format(type*1000000,(type+1)*1000000)
         query="select * from DEVICE D join PCS P on P.ID = D.ID {} order by D.overall_review/D.Num_reviews, D.ID".format(check)
         table=db.executeCommand(query)
+        table=table.fetchall()
         return json.dumps(table)
