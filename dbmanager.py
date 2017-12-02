@@ -1,4 +1,5 @@
 import pypyodbc
+import json
 
 
 class DBManager:
@@ -22,6 +23,7 @@ class DBManager:
 	def executeQuery(self, query):
 		self.data = self.cursor.execute(query)
 		self.data = self.data.fetchall()
+		self.data = json.dumps(data)
 		return self.data
 
 	def executeNonQuery(self, query):
