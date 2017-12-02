@@ -19,7 +19,7 @@ class technician(userClass.users):
                     query = "insert into PCS(ID,GPU ,CPU ,RAM ) VALUES ("+str(id)+"," + str(args[0]) + "," + str(args[1])+"," + str(args[2]) + ")"
                 
                     print(query)
-                    #db.executeCommand(query)
+                    db.executeCommand(query)
 
                     return
 
@@ -28,7 +28,7 @@ class technician(userClass.users):
                     query = "insert into HAS_OS(PC_ID , OS_ID ) values( " + str(pc_id) + "," + str(os_id) + ")"
                     print(query)
 
-		#db.executeCommand(query)
+		db.executeCommand(query)
                     return
         
 
@@ -40,13 +40,13 @@ class technician(userClass.users):
     def add_ic(id,*args) :
                     query = "insert into ICS(ID,CODE)values( "+str(id)+"," + str(args[0]) + ")"
                     print(query)
-                #db.executeCommand(query)
+                db.executeCommand(query)
                     return
 
     def update_devicestate(id, state) :
                                     query = "  update DEVICE set STAT =" + str(state) + "where ID =" + str(id) 
                                     print(query)
-                                    #db.executeCommand(query)
+                                    db.executeCommand(query)
                                     return
 
     def update_devicerate(id, rate) :
@@ -60,13 +60,13 @@ class technician(userClass.users):
     def remove_device(id) :
                         query = "delete from device where ID=" + str(id)
                         print(query)
-                        #db.executeCommand(query)
+                        db.executeCommand(query)
                         return
 
     def add_os(id, name, link) :
                             query = "insert into  OS(ID,NAME,LINK ) values(" + str(id) + "," + " '"+str(name) +"'"+ "," +" '"+ str(link)+" '" + ")"
                             print(query)
-                            #db.executeCommand(query)
+                            db.executeCommand(query)
                             return
 
     def add_software(id, name, link) :
@@ -78,5 +78,5 @@ class technician(userClass.users):
     def add_ictype(Gate , link) :
                                 query = "insert into  IC_TYPE(CODE,link ) values(" +str(Gate) + "," + "'"+str(link)+"'" + ")"
                                 print(query)
-                                #db.executeCommand(query)
+                                db.executeCommand(query)
                                 return
