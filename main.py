@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 app = Flask(__name__)
-from add_retrieve import *
+from manager import Manager
+from user import User
 
 @app.route('/')
 def hello():
@@ -13,7 +14,8 @@ def hello_name(name):
 
 @app.route('/getstudents')
 def students():
-	return getAllStudets()
+	M=Manager()
+	return M.getAllStudets()
 
 
 @app.route('/getstudent/<int:sid>')
