@@ -51,3 +51,13 @@ class Manager(user.User):
 		query = 'select * from TECHNICIAN where ID = {}'.format(id)
 		data = db.executeQuery(query)
 		return json.dumps(data)
+
+	#this function deletes a tech using id
+	def deleteTech(id):
+		query = 'delete from TECHNICIAN where ID = {}'.format(id)
+		db.executeNonQuery(query)
+
+	#this funcion deletes a student using his id
+	def deleteStudent(id):
+		query = 'delete from STUDENT where ID = {}'.format(id)
+		db.executeNonQuery(query)
