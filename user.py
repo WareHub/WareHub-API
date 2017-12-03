@@ -5,14 +5,6 @@ import json
 class User:
 	def __init__(self):
 	    self.db=DBManager()
-	 
-	def update_info(self,ID,table,**kwargs):
-	    #ID of updater, name of table and kwargs is ([phone:123,password:123])
-	    seted=""
-	    for key in kwargs:
-	        seted+="{}={}".format(key,kwargs[key])
-	    query="UPDATE {} Set {} Where ID={}".format(table,seted,ID)
-	    db.executeNonQuery(query)
 
 	def retrive_devices(self,type):
 	    #type of devicea assumed that type is number
@@ -24,8 +16,6 @@ class User:
 	    query="select * from DEVICE D {} order by D.overall_review/D.Num_reviews".format(check)
 	    data =  db.executeQuery(query)
 	    return json.dumps(data)
-
-
 
 	def retrive_ic(self,type):
 	    #retrive for ICs only , type is number less than 100 to get IC code
