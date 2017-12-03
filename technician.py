@@ -1,11 +1,17 @@
-import user
+from user import User
 
 
-class Technician(user.User):
-    def add_device(id, dtype, location, state, tech_id, *args) :
+class Technician(User):
+
+    def __init__(self):
+        User.__init__(self)
+
+
+
+    def add_device(self, id, dtype, location, state, tech_id, *args) :
         query = "insert into DEVICE(ID,DTYPE,LOCATION,STAT,OVERALL_REVIEW,NUM_REVIEWS,TECH_ID) Values(" + str(id) + "," +str(dtype)+ ","+str(location) + "," + str(state)+","+  str(0) + "," + str(0) + "," + str(tech_id) + ")"
         print(query)
-        #db.executeCommand(query)
+        #self.db.executeCommand(query)
         if (dtype==5):
             add_pc(id,*args)
         elif (dtype==7):
@@ -14,67 +20,67 @@ class Technician(user.User):
                      
     	
         return
-    def add_pc(id,*args) :
+    def add_pc(self, id,*args) :
         query = "insert into PCS(ID,GPU ,CPU ,RAM ) VALUES ("+str(id)+"," + str(args[0]) + "," + str(args[1])+"," + str(args[2]) + ")"
 
         #print(query)
-        db.executeNonQuery(query)
+        self.db.executeNonQuery(query)
 
         return
 
 
-    def add_pc_os(pc_id, os_id) :
+    def add_pc_os(self, pc_id, os_id) :
         query = "insert into HAS_OS(PC_ID , OS_ID ) values( " + str(pc_id) + "," + str(os_id) + ")"
         #print(query)
-        db.executeNonQuery(query)
+        self.db.executeNonQuery(query)
         return
         
 
-    def add_pc_software(pc_id, software_id) :
+    def add_pc_software(self, pc_id, software_id) :
         query = "insert into  HAS_SOFTWARE(PC_ID , SOFTWARE_ID ) values( " + str(pc_id) + "," + str(software_id) + ")"
         #print(query)
         return
 
-    def add_ic(id,*args) :
+    def add_ic(self, id,*args) :
         query = "insert into ICS(ID,CODE)values( "+str(id)+"," + str(args[0]) + ")"
         #print(query)
-        db.executeNonQuery(query)
+        self.db.executeNonQuery(query)
         return
 
-    def update_devicestate(id, state) :
+    def update_devicestate(self, id, state) :
         query = "  update DEVICE set STAT =" + str(state) + "where ID =" + str(id) 
         #print(query)
-        db.executeNonQuery(query)
+        self.db.executeNonQuery(query)
         return
 
-    def update_devicerate(id, rate) :
+    def update_devicerate(self, id, rate) :
         query = " update DEVICE set OVERALL_REVIEW+=" + str(rate) + " ,NUM_REVIEWS+=1 where ID =" + str(id)
         #print(query)
-        db.executeNonQuery(query)
+        self.db.executeNonQuery(query)
 
         return
 
 
-    def remove_device(id) :
+    def remove_device(self, id) :
         query = "delete from device where ID=" + str(id)
         #print(query)
-        db.executeNonQuery(query)
+        self.db.executeNonQuery(query)
         return
 
-    def add_os(id, name, link) :
+    def add_os(self, id, name, link) :
         query = "insert into  OS(ID,NAME,LINK ) values(" + str(id) + "," + " '"+str(name) +"'"+ "," +" '"+ str(link)+" '" + ")"
         #print(query)
-        db.executeNonQuery(query)
+        self.db.executeNonQuery(query)
         return
 
-    def add_software(id, name, link) :
+    def add_software(self, id, name, link) :
         query = "insert into SOFTWARE(ID,NAME,LINK ) values(" + str(id) + "," +"'"+ str(name)+"'" + "," +"'" +str(link)+"'" + ")"
         #print(query)
-        db.executeNonQuery(query)
+        self.db.executeNonQuery(query)
         return
 
-    def add_ictype(Gate , link) :
+    def add_ictype(self, Gate , link) :
         query = "insert into  IC_TYPE(CODE,link ) values(" +str(Gate) + "," + "'"+str(link)+"'" + ")"
         #print(query)
-        db.executeNonQuery(query)
+        self.db.executeNonQuery(query)
         return
