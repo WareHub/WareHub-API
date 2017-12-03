@@ -12,11 +12,11 @@ class Technician(user.User):
             add_ic(id,*args)
 
                      
-		
+    	
         return
     def add_pc(id,*args) :
         query = "insert into PCS(ID,GPU ,CPU ,RAM ) VALUES ("+str(id)+"," + str(args[0]) + "," + str(args[1])+"," + str(args[2]) + ")"
-    
+
         #print(query)
         db.executeNonQuery(query)
 
@@ -25,9 +25,8 @@ class Technician(user.User):
 
     def add_pc_os(pc_id, os_id) :
         query = "insert into HAS_OS(PC_ID , OS_ID ) values( " + str(pc_id) + "," + str(os_id) + ")"
-        print(query)
-
-		db.executeNonQuery(query)
+        #print(query)
+        db.executeNonQuery(query)
         return
         
 
@@ -76,6 +75,6 @@ class Technician(user.User):
 
     def add_ictype(Gate , link) :
         query = "insert into  IC_TYPE(CODE,link ) values(" +str(Gate) + "," + "'"+str(link)+"'" + ")"
-        print(query)
-        db.executeCommand(query)
+        #print(query)
+        db.executeNonQuery(query)
         return

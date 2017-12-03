@@ -3,8 +3,8 @@ import user
 
 
 class Manager(user.User):
-#this function adds managers, students, technetians to the database
-#only managers can call this functions
+	#this function adds managers, students, technetians to the database
+	#only managers can call this functions
 	def insertUser(type, id, name, password, phone, isTA = 0, points = 0):
 		hashpass = scrypt.encrypt(password)
 
@@ -27,26 +27,26 @@ class Manager(user.User):
 
 
 
-#this funciton retreives students from database
+	#this funciton retreives students from database
 	def getAllStudets():
 		query = 'select * from STUDENT'
 		data = db.executeQuery(query)
 		return json.dumps(data)
 
-#this funciton retrieves one student by his/her id
+	#this funciton retrieves one student by his/her id
 	def getStudent(id):
 		query = 'select * from STUDENT where ID = {}'.format(id)
 		data = db.executeQuery(query)
 		return json.dumps(data)
 
-#this function retrieves all techniciens
+	#this function retrieves all techniciens
 	def getAllTech():
 		query = 'select * from TECHNICIAN'
 		data = db.executeQuery(query)
 		return json.dumps(data)
 
 
-#this function retrieves one tech using id
+	#this function retrieves one tech using id
 	def getTech(id):
 		query = 'select * from TECHNICIAN where ID = {}'.format(id)
 		data = db.executeQuery(query)
