@@ -12,7 +12,7 @@ def hello():
 
 #just for trial
 @app.route('/getstudents')
-def hello():
+def getStudents():
    return m.getAllStudets()
 
 
