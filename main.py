@@ -18,6 +18,11 @@ def students():
 	return M.getAllStudets()
 
 
+@app.route('/retriveDevices/<int:type>')
+def student(type):
+    return getStudent(type)
+
+
 @app.route('/getstudent/<int:sid>')
 def student(sid):
     return getStudent(sid)
