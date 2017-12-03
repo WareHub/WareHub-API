@@ -10,6 +10,10 @@ m = Manager()
 def hello():
    return 'hello world'
 
+#just for trial
+@app.route('/getstudents')
+def hello():
+   return m.getAllStudets()
 
 
 if __name__ == '__main__':
