@@ -187,7 +187,7 @@ def delTech(tid):
 
 @app.route('/retrive_devices/<int:did>')
 def delTech(did):
-  u.retrive_devices(did)
+  return u.retrive_devices(did)
 
 
 @app.route('/getreviews')
