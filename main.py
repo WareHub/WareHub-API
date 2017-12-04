@@ -210,14 +210,30 @@ def updateInfoAPI():
 
 ##########################################hanin##############################################################################
 
-
-@app.route('/insertdemand', methods = ['POST', 'GET'])
+'''
+@app.route('/insertdemand', methods = ['POST' , 'GET'])
 def insertDemand():
     if request.method == 'POST':
         result = request.form
         result = dict(result)
         insertDemand(int(result[''][0]), int(result[''][1]), datetime(result[''][2]), datetime(result[''][3]))
     return
+'''
+@app.route('/insertdemand', methods = ['POST' , 'GET'])
+def insertDemand():
+    if request.method == 'POST':
+        result = request.form
+        result = dict(result)
+        insertDemand(int(result[''][0]), int(result[''][1]), datetime(result[''][2]), datetime(result[''][3]))
+        
+    else:
+      no1=request.args.get('fir')
+      no2=request.args.get('sec')
+      no3=request.args.get('thi')
+      no4=request.args.get('fou')  
+
+    return
+        
 
 
 
