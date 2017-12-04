@@ -12,9 +12,9 @@ class Technician(User):
         query = "insert into DEVICE(ID,DTYPE,LOCATION,STAT,OVERALL_REVIEW,NUM_REVIEWS,TECH_ID) Values(" + str(id) + "," +str(dtype)+ ","+str(location) + "," + str(state)+","+  str(0) + "," + str(0) + "," + str(tech_id) + ")"
         print(query)
         #self.db.executeCommand(query)
-        if (dtype==5):
+        if (id>50000000 and id < 60000000):
             add_pc(id,*args)
-        elif (dtype==7):
+        elif (id > 70000000):
             add_ic(id,*args)
 
                      
@@ -84,3 +84,11 @@ class Technician(User):
         #print(query)
         self.db.executeNonQuery(query)
         return
+
+    def retrieveDemand_Tech(self, techID):
+        query = 'SELECT STUDENT_ID, DEVICE_ID, START_TIME, END_TIME, RESERVED, INUSE FROM DEMAND join DEVICE on ID = DEVICE_ID WHERE TECH_ID = {}'.format(techID)
+        #print (query)
+        data = self.db.executeQuery(query)
+        return json.dumps(data)
+
+

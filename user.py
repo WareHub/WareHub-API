@@ -35,13 +35,6 @@ class User:
 
 
 
-	#this function adds a review to the database
-	def insertReview(self, sid, deviceid, opinion, rate):
-		date = self.db.executeQuery('select GETDATE()')
-		query = "insert into REVIEW (STUDENT_ID, DEVICE_ID, R_TIME, OPINION, RATE) values ({}, {}, {}, '{}', {})".format(sid, deviceid, date, opinion, rate)
-		self.db.executeNonQuery(query)
-
-
 	#this function retreives the reviews of devices and returns it in json string
 	def getReviews(self):
 		query = 'select * from REVIEW'
