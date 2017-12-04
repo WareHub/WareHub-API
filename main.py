@@ -185,6 +185,11 @@ def delTech(tid):
   m.deleteTech(tid)
 
 
+@app.route('/retrive_devices/<int:did>')
+def delTech(did):
+  u.retrive_devices(did)
+
+
 @app.route('/getreviews')
 def getReviewsAPI():
   return u.getReviews()
