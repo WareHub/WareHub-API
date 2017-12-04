@@ -4,6 +4,7 @@ from technician import Technician
 from user import User
 from student import Student
 import datetime
+import json
 
 
 
@@ -178,16 +179,12 @@ def insertUserAPI():
   if request.method == 'POST':
     result = dict(request.form)
     m.insertUser(int(result[''][0]), result[''][1], result[''][2], result[''][3], result[''][4])
+    return json.dumps(result)
 
 
-@app.route('/deletestudent/<int:sid>')
+@app.route('/deleteuser/<int:sid>')
 def delStudent(sid):
   m.deleteStudent(sid)
-
-
-@app.route('/deletetech/<int:tid>')
-def delTech(tid):
-  m.deleteTech(tid)
 
 
 

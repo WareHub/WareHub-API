@@ -1,5 +1,4 @@
 from dbmanager import DBManager
-from passlib.hash import sha256_crypt as scrypt
 import json
 
 class User:
