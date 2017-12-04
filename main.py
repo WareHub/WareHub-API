@@ -2,10 +2,12 @@ from flask import Flask, render_template, request
 from manager import Manager
 from technician import Technician
 from user import User
+import datetime
 
 
 
 app = Flask(__name__)
+
 
 
 m = Manager()
@@ -13,11 +15,17 @@ t = Technician()
 u = User()
 
 
+
 @app.route('/')
 def hello():
    return 'hello world'
 
 
+
+
+
+
+###############################################roba################################################################
 
 '''
 @app.route('/add_device',methods=['POST','GET'])
@@ -145,6 +153,7 @@ def hello():
 		return str(result[''])	 
 '''
 
+###############################################omar###########################################
 
 @app.route('/getstudents')
 def getstudents():
@@ -202,7 +211,50 @@ def updateInfoAPI():
     u.updateInfo(result[''][0], result[''][1], result[''][2])
 
 
+##########################################hanin##############################################################################
+
+
+@app.route('/insertdemand', methods = ['POST', 'GET'])
+def insertDemand():
+    if request.method == 'POST':
+        result = request.form
+        result = dict(result)
+        insertDemand(int(result[''][0]), int(result[''][1]), datetime(result[''][2]), datetime(result[''][3]))
+    return
+
+
+
+@app.route('/retrievedemand_st', methods = ['POST', 'GET'])
+def retrieveDemandS():
+    if request.method == 'POST':
+        result = request.form
+        result = dict(result)
+        return retrieveDemand_St(int(result[''][0]))
+    
+
+
+@app.route('/retrievedemand_tech', methods = ['POST', 'GET'])
+def retrieveDemandT():
+    if request.method == 'POST':
+        result = request.form
+        result = dict(result)
+        return retrieveDemand_Tech(int(result[''][0]))
+
+
+@app.route('/deletedemand_st', methods = ['POST', 'GET'])
+def deleteDemand():
+    if request.method == 'POST':
+        result = request.form
+        result = dict(result)
+        deleteDemand_St(int(result[''][0]), int(result[''][1]), datetime(result[''][2]))
+    return
+
+
+####################################################################################################################
+
+
 
 
 if __name__ == '__main__':
    app.run(debug = True)
+
