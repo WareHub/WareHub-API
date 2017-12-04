@@ -1,5 +1,6 @@
 from dbmanager import DBManager
 from user import User
+from passlib.hash import sha256_crypt as scrypt
 import json
 
 
@@ -60,11 +61,6 @@ class Manager(User):
 		return json.dumps(data)
 
 	#this function deletes a tech using id
-	def deleteTech(self, id):
-		query = 'delete from TECHNICIAN where ID = {}'.format(id)
-		self.db.executeNonQuery(query)
-
-	#this funcion deletes a student using his id
-	def deleteStudent(self, id):
-		query = 'delete from STUDENT where ID = {}'.format(id)
+	def deleteUser(self, id):
+		query = 'delete from USERS where ID = {}'.format(id)
 		self.db.executeNonQuery(query)

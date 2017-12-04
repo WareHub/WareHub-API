@@ -26,6 +26,7 @@ class DBManager:
 
 	def executeNonQuery(self, query):
 		self.cursor.execute(query)
+		self.conn.commit()
 
 
 	def closeConnection(self):
