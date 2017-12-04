@@ -1,5 +1,6 @@
 from dbmanager import DBManager
 import json
+from passlib.hash import sha256_crypt as scrypt
 
 class User:
 	def __init__(self):

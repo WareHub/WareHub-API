@@ -177,12 +177,12 @@ def insertUserAPI():
   if request.method == 'POST':
     result = dict(request.form)
     m.insertUser(int(result[''][0]), result[''][1], result[''][2], result[''][3], result[''][4])
-    
+    return json.dumps(result)
+
 
 @app.route('/deleteuser/<int:sid>')
-def delStudent(sid):
-  m.deleteStudent(sid)
-
+def delUser(sid):
+  m.deleteUser(sid)
 
 
 @app.route('/getreviews')
@@ -197,7 +197,7 @@ def getDeviceReviews(dID):
 
 @app.route('/login', methods = ['POST'])
 def loginAPI():
-  if requet.method  == 'POST':
+  if request.method  == 'POST':
     result = dict(request.form)
     return u.login(result[''][0], result[''][1])
 
