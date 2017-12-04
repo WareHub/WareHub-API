@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from manager import Manager
 from technician import Technician
 from user import User
+from student import Student
 import datetime
 
 
@@ -13,7 +14,7 @@ app = Flask(__name__)
 m = Manager()
 t = Technician()
 u = User()
-
+s = Student()
 
 
 @app.route('/')
@@ -229,34 +230,20 @@ def insertDemand():
     if request.method == 'POST':
         result = request.form
         result = dict(result)
-        insertDemand(int(result[''][0]), int(result[''][1]), datetime(result[''][2]), datetime(result[''][3]))
-        
-    else:
-      no1=request.args.get('fir')
-      no2=request.args.get('sec')
-      no3=request.args.get('thi')
-      no4=request.args.get('fou')  
-
-    return
+        s.insertDemand(int(result[''][0]), int(result[''][1]), datetime(result[''][2]), datetime(result[''][3]))
         
 
 
 
 @app.route('/retrievedemand_st', methods = ['POST', 'GET'])
 def retrieveDemandS():
-    if request.method == 'POST':
-        result = request.form
-        result = dict(result)
-        return retrieveDemand_St(int(result[''][0]))
+        return s.retrieveDemand_St(int(result[''][0]))
     
 
 
 @app.route('/retrievedemand_tech', methods = ['POST', 'GET'])
 def retrieveDemandT():
-    if request.method == 'POST':
-        result = request.form
-        result = dict(result)
-        return retrieveDemand_Tech(int(result[''][0]))
+        return t.retrieveDemand_Tech(int(result[''][0]))
 
 
 @app.route('/deletedemand_st', methods = ['POST', 'GET'])
@@ -264,7 +251,7 @@ def deleteDemand():
     if request.method == 'POST':
         result = request.form
         result = dict(result)
-        deleteDemand_St(int(result[''][0]), int(result[''][1]), datetime(result[''][2]))
+        s.deleteDemand_St(int(result[''][0]), int(result[''][1]), datetime(result[''][2]))
     return
 
 
