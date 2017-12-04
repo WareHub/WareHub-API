@@ -150,6 +150,10 @@ def hello():
 		return str(result[''])	 
 '''
 
+@app.route('/retrive_devices/<int:did>')
+def retdevices(did):
+  return u.retrive_devices(did)
+
 ###############################################omar###########################################
 
 @app.route('/getstudents')
@@ -184,10 +188,6 @@ def delStudent(sid):
 def delTech(tid):
   m.deleteTech(tid)
 
-
-@app.route('/retrive_devices/<int:did>')
-def delTech(did):
-  return u.retrive_devices(did)
 
 
 @app.route('/getreviews')
