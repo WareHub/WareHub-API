@@ -26,131 +26,129 @@ def hello():
 
 ###############################################roba################################################################
 
-'''
 @app.route('/add_device',methods=['POST','GET'])
-    def addevice():#return the addevice function url
-		if request.method == 'POST':
-			result = request.form
-			#return render_template("result.html",result = result)
-			result = dict(result)
-			if( result[''][1]==5)
-				add_device(int(result[''][0]), result[''][1], result[''][2], result[''][3], result[''][4],result[''][5],result[''][6],result[''][7],result[''][8])
-			
-            else
-				add_device(int(result[''][0]), result[''][1], result[''][2], result[''][3], result[''][4],result[''][5])
+def addevice():#return the addevice function url
+	if request.method == 'POST':
+		result = request.form
+		#return render_template("result.html",result = result)
+		result = dict(result)
+		if( result[''][0]>50000000 and id<60000000):
+			t.add_device(int(result[''][0]), result[''][1], result[''][2], result[''][3], result[''][4],result[''][5],result[''][6],result[''][7],result[''][8])
+		elif(result[''][0]>70000000):
+			t.add_device(int(result[''][0]), result[''][1], result[''][2], result[''][3], result[''][4],result[''][5])
+	return str(result[''])
+		
+@app.route('/add_pc',methods=['POST','GET'])
+def addpc():#return the addpc function url
+	if request.method == 'POST':
+		result = request.form
+		#return render_template("result.html",result = result)
+		result = dict(result)
+		
+		t.add_pc(int(result[''][0]), result[''][1], result[''][2], result[''][3], result[''][4])
 
-		return str(result[''])
+	return str(result[''])
 		
-	@app.route('/add_pc',methods=['POST','GET'])
-    def addpc():#return the addpc function url
-		if request.method == 'POST':
-			result = request.form
-			#return render_template("result.html",result = result)
-			result = dict(result)
-			
-			add_pc(int(result[''][0]), result[''][1], result[''][2], result[''][3], result[''][4])
+		
+		
+@app.route('/add_pc_os',methods=['POST','GET'])
+def addpc_os():#return the addpc_os function url
+	if request.method == 'POST':
+		result = request.form
+		#return render_template("result.html",result = result)
+		result = dict(result)
+	
+		t.add_pc_os(int(result[''][0]), result[''][1])
 
-		return str(result[''])
-		
-		
-		
-	@app.route('/add_pc_os',methods=['POST','GET'])
-    def addpc_os():#return the addpc_os function url
-		if request.method == 'POST':
-			result = request.form
-			#return render_template("result.html",result = result)
-			result = dict(result)
-		
-			add_pc_os(int(result[''][0]), result[''][1])
-
-		return str(result[''])
+	return str(result[''])
 			
 		
-	@app.route('/add_pc_software',methods=['POST','GET'])
-    def addpc_software():#return the addpc_os function url
-		if request.method == 'POST':
-			result = request.form
-			#return render_template("result.html",result = result)
-			result = dict(result)
-		
-			add_pc_software(int(result[''][0]), result[''][1])
+@app.route('/add_pc_software',methods=['POST','GET'])
+def addpc_software():#return the addpc_os function url
+	if request.method == 'POST':
+		result = request.form
+		#return render_template("result.html",result = result)
+		result = dict(result)
+	
+		t.add_pc_software(int(result[''][0]), result[''][1])
 
-		return str(result[''])
+	return str(result[''])
 			
-	@app.route('/add_ic',methods=['POST','GET'])
-    def addic():#return the addpc_os function url
-		if request.method == 'POST':
-			result = request.form
-			#return render_template("result.html",result = result)
-			result = dict(result)
-		
-			add_ic(int(result[''][0]), result[''][1])
+@app.route('/add_ic',methods=['POST','GET'])
+def addic():#return the addpc_os function url
+	if request.method == 'POST':
+		result = request.form
+		#return render_template("result.html",result = result)
+		result = dict(result)
+	
+		t.add_ic(int(result[''][0]), result[''][1])
 
-		return str(result[''])
+	return str(result[''])
 			
 				
-    @app.route('/update_devicestate',methods=['POST','GET'])
-    def updatedevicestate():#return the addpc_os function url
-		if request.method == 'POST':
-			result = request.form
-			#return render_template("result.html",result = result)
-			result = dict(result)
-		
-			update_devicestate(int(result[''][0]), result[''][1])
-
-		return str(result[''])
-			
-	@app.route('/update_devicerate',methods=['POST','GET'])
-    def updatedevicerate():#return the addpc_os function url
-		if request.method == 'POST':
-			result = request.form
-			#return render_template("result.html",result = result)
-			result = dict(result)
-		
-			update_devicestate(int(result[''][0]), result[''][1])
-
-		return str(result[''])
+@app.route('/update_devicestate',methods=['POST','GET'])
+def updatedevicestate():#return the addpc_os function url
+	if request.method == 'POST':
+		result = request.form
+		#return render_template("result.html",result = result)
+		result = dict(result)
 	
-	@app.route('/add_os',methods=['POST','GET'])
-    def addos():#return the addpc_os function url
-		if request.method == 'POST':
-			result = request.form
-			#return render_template("result.html",result = result)
-			result = dict(result)
-		
-			add_os(int(result[''][0]), result[''][1],result[''][2])
+		t.update_devicestate(int(result[''][0]), result[''][1])
 
-		return str(result[''])
-	@app.route('/add_software',methods=['POST','GET'])
-    def addsoftware():#return the addpc_os function url
-		if request.method == 'POST':
-			result = request.form
-			#return render_template("result.html",result = result)
-			result = dict(result)
-		
-			add_software(int(result[''][0]), result[''][1],result[''][2])
-
-		return str(result[''])	
-	@app.route('/add_ictype',methods=['POST','GET'])
-    def addictype():#return the addpc_os function url
-		if request.method == 'POST':
-			result = request.form
-			#return render_template("result.html",result = result)
-			result = dict(result)
-		
-			add_software(int(result[''][0]), result[''][1])
+	return str(result[''])
 			
-    @app.route('/remove_ic',methods=['POST','GET'])
-    def removeic():#return the addpc_os function url
-		if request.method == 'POST':
-			result = request.form
-			#return render_template("result.html",result = result)
-			result = dict(result)
-		
-			remove_ic(int(result[''][0]))
+@app.route('/update_devicerate',methods=['POST','GET'])
+def updatedevicerate():#return the addpc_os function url
+	if request.method == 'POST':
+		result = request.form
+		#return render_template("result.html",result = result)
+		result = dict(result)
+	
+		t.update_devicestate(int(result[''][0]), result[''][1])
 
-		return str(result[''])	 
-'''
+	return str(result[''])
+	
+@app.route('/add_os',methods=['POST','GET'])
+def addos():#return the addpc_os function url
+	if request.method == 'POST':
+		result = request.form
+		#return render_template("result.html",result = result)
+		result = dict(result)
+	
+		t.add_os(int(result[''][0]), result[''][1],result[''][2])
+
+	return str(result[''])
+
+@app.route('/add_software',methods=['POST','GET'])
+def addsoftware():#return the addpc_os function url
+	if request.method == 'POST':
+		result = request.form
+		#return render_template("result.html",result = result)
+		result = dict(result)
+	
+		t.add_software(int(result[''][0]), result[''][1],result[''][2])
+
+	return str(result[''])	
+
+@app.route('/add_ictype',methods=['POST','GET'])
+def addictype():#return the addpc_os function url
+	if request.method == 'POST':
+		result = request.form
+		#return render_template("result.html",result = result)
+		result = dict(result)
+	
+		t.add_software(int(result[''][0]), result[''][1])
+			
+@app.route('/remove_ic',methods=['POST','GET'])
+def removeic():#return the addpc_os function url
+	if request.method == 'POST':
+		result = request.form
+		#return render_template("result.html",result = result)
+		result = dict(result)
+	
+		t.remove_ic(int(result[''][0]))
+
+	return str(result[''])	
 
 @app.route('/retrive_devices/<int:did>')
 def retdevices(did):
