@@ -1,5 +1,5 @@
 from user import User
-
+import json
 
 class Technician(User):
 
@@ -89,6 +89,10 @@ class Technician(User):
         query = 'SELECT STUDENT_ID, DEVICE_ID, START_TIME, END_TIME, RESERVED, INUSE FROM DEMAND join DEVICE on ID = DEVICE_ID WHERE TECH_ID = {}'.format(techID)
         #print (query)
         data = self.db.executeQuery(query)
+        for i in range(len(data)):
+            data[i] = list(data[i])
+            data[i][2] = str(data[i][2])
+            data[i][3] = str(data[i][3])
         return json.dumps(data)
 
 

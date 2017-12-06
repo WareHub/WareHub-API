@@ -229,15 +229,15 @@ def insertDemand():
 
 
 
-@app.route('/retrievedemand_st')
-def retrieveDemandS():
-        return s.retrieveDemand_St(result[''][0])
+@app.route('/retrievedemand_st/<int:sid>')
+def retrieveDemandS(sid):
+        return s.retrieveDemand_St(sid)
     
 
 
-@app.route('/retrievedemand_tech')
-def retrieveDemandT():
-        return t.retrieveDemand_Tech(result[''][0])
+@app.route('/retrievedemand_tech/<int:tid>')
+def retrieveDemandT(tid):
+        return t.retrieveDemand_Tech(tid)
 
 
 @app.route('/deletedemand_st', methods = ['POST'])
@@ -246,7 +246,8 @@ def deleteDemand():
         result = request.form
         result = dict(result)
         s.removeDemand(result[''][0], result[''][1], result[''][2])
-    return
+        #return str(result)
+
 
 
 ####################################################################################################################

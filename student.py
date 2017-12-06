@@ -1,5 +1,6 @@
 import datetime
 from user import User
+import json
 
 
 
@@ -12,26 +13,29 @@ class Student(User):
     def insertDemand(self, stID, devID, startT, endT):
 
         #gets overlaps between new demand and accepted demands
-        query = "SELECT* FROM DEMAND WHERE DEVICE_ID = {} AND RESERVED = 1 AND ((START_TIME < '{}' AND END_TIME > '{}') OR (START_TIME < '{}' AND END_TIME > '{}') \
-                    OR (START_TIME > '{}' AND END_TIME < '{}'))".format(devID, startT, startT, endT, endT, startT, endT)
+        query = "SELECT* FROM DEMAND WHERE DEVICE_ID = {} AND RESERVED = 1 AND ((START_TIME <= convert(datetime2, '{}') AND END_TIME >= convert(datetime2, '{}')) OR (START_TIME <= convert(datetime2, '{}') AND END_TIME >= convert(datetime2, '{}')) \
+                    OR (START_TIME >= convert(datetime2, '{}') AND END_TIME <= convert(datetime2, '{}')) OR  (START_TIME <= convert(datetime2, '{}') AND END_TIME >= convert(datetime2, '{}')))".format(devID, startT, startT, endT, endT, startT, endT, startT, endT)
         table = self.db.executeQuery(query)
+        for i in range(len(table)):
+            table[i] = list(table[i])
+            table[i][2] = str(table[i][2])
+            table[i][3] = str(table[i][3])
 
         #if no overlaps demand is inserted and accepted (reserved = 1)
         if len(table) == 0:
-            query = "INSERT INTO DEMAND (STUDENT_ID, DEVICE_ID, START_TIME, END_TIME, RESERVED) VALUES ({}, {}, '{}', '{}', 1)".format(stID, devID, startT, endT)
+            query = "INSERT INTO DEMAND VALUES ({}, {}, convert(datetime2, '{}'), convert(datetime2, '{}'), 1, 0)".format(stID, devID, startT, endT)
             #print (query)
-            self.db.executeNonquery(query)
+            self.db.executeNonQuery(query)
 
         #if there's an overlap (only one) we check the time 
         elif len(table) == 1 and datetime.datetime.now() > table[0][2] and (not table[0][5]):
-            
-            query = "INSERT INTO DEMAND (STUDENT_ID, DEVICE_ID, START_TIME, END_TIME, RESERVED) VALUES ({}, {}, '{}', '{}', 1)".format(stID, devID, startT, endT)
-            self.db.executeNonquery(query)
+            query = "INSERT INTO DEMAND VALUES ({}, {}, convert(datetime2, '{}'), convert(datetime2, '{}'), 1, 0)".format(stID, devID, startT, endT)
+            self.db.executeNonQuery(query)
                                                             
         else:
-            query = "INSERT INTO DEMAND (STUDENT_ID, DEVICE_ID, START_TIME, END_TIME, RESERVED) VALUES ({}, {}, '{}', '{}', 0)".format(stID, devID, startT, endT)
+            query = "INSERT INTO DEMAND VALUES ({}, {}, convert(datetime2, '{}'), convert(datetime2, '{}'), 0, 0)".format(stID, devID, startT, endT)
             #print (query)
-            self.db.executeNonquery(query)
+            self.db.executeNonQuery(query)
             return json.dumps(table) 
     
     
@@ -40,6 +44,10 @@ class Student(User):
         query = 'SELECT* FROM DEMAND WHERE STUDENT_ID = {}'.format(stID)
         #print (query)
         data = self.db.executeQuery(query)
+        for i in range(len(data)):
+            data[i] = list(data[i])
+            data[i][2] = str(data[i][2])
+            data[i][3] = str(data[i][3])
         return json.dumps(data) 
 
     #this function adds a review to the database
@@ -52,8 +60,6 @@ class Student(User):
 
      #REMOVE FROM DEMAND TABLE FUNC.
     def removeDemand(self, stID, devID, startT):
-        query = "DELETE FROM DEMAND WHERE STUDENT_ID = {} AND DEVICE_ID = {} AND START_TIME = '{}'".format(stID, devID, startT)
+        query = "DELETE FROM DEMAND WHERE STUDENT_ID = {} AND DEVICE_ID = {} AND START_TIME = CONVERT(datetime2, '{}')".format(stID, devID, startT)
         self.db.executeNonQuery(query)
-
-    
-    
+        #return query
