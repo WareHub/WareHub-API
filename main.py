@@ -219,33 +219,33 @@ def insertDemand():
         insertDemand(int(result[''][0]), int(result[''][1]), datetime(result[''][2]), datetime(result[''][3]))
     return
 '''
-@app.route('/insertdemand', methods = ['POST' , 'GET'])
+@app.route('/insertdemand', methods = ['POST'])
 def insertDemand():
     if request.method == 'POST':
         result = request.form
         result = dict(result)
-        s.insertDemand(int(result[''][0]), int(result[''][1]), datetime(result[''][2]), datetime(result[''][3]))
+        s.insertDemand(result[''][0], result[''][1], result[''][2], result[''][3])
         
 
 
 
-@app.route('/retrievedemand_st', methods = ['POST', 'GET'])
+@app.route('/retrievedemand_st')
 def retrieveDemandS():
-        return s.retrieveDemand_St(int(result[''][0]))
+        return s.retrieveDemand_St(result[''][0])
     
 
 
-@app.route('/retrievedemand_tech', methods = ['POST', 'GET'])
+@app.route('/retrievedemand_tech')
 def retrieveDemandT():
-        return t.retrieveDemand_Tech(int(result[''][0]))
+        return t.retrieveDemand_Tech(result[''][0])
 
 
-@app.route('/deletedemand_st', methods = ['POST', 'GET'])
+@app.route('/deletedemand_st', methods = ['POST'])
 def deleteDemand():
     if request.method == 'POST':
         result = request.form
         result = dict(result)
-        s.deleteDemand_St(int(result[''][0]), int(result[''][1]), datetime(result[''][2]))
+        s.removeDemand(result[''][0], result[''][1], result[''][2])
     return
 
 
