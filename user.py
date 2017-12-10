@@ -7,20 +7,42 @@ class User:
 	    self.db=DBManager()
 
 	def retrive_devices(self,type):
-	    #type of devicea assumed that type is number
-	    if (type==5): #for PCs 
+	    #type of devicea assumed that type is number if type =0 retruive all devices
+	    type=int(type)
+	    if (type==5): #for PCs
 	        return self.retrive_pc(type)
 	    if (type==7): #for ICs
 	        return self.retrive_ic(type)
-	    check="where ID>{} and ID<{}".format(type*10000000,(type+1)*10000000)
-	    query="select * from DEVICE D {} order by D.overall_review/D.Num_reviews".format(check)
+	    check="where D.ID>{} and D.ID<{}".format(type*10000000,(type+1)*10000000)
+	    query="select * from DEVICE D {} order by D.overall_review".format(check)
+	    if (type==0):
+	        query="select * from DEVICE"
 	    data =  self.db.executeQuery(query)
 	    return json.dumps(data)
 
+	def retrive_table(self,table):
+	    #type of devicea assumed that type is number if type =0 retruive all devices
+	    query="select * from {}".format(table)
+	    data =  self.db.executeQuery(query)
+	    return json.dumps(data)
+
+	def retriveOnePC(self,id):
+	    #one device with all attributes and reviews
+	    query="select * from DEVICE D join PCS P on P.ID=D.ID where D.ID={}".format(id)
+	    pc =  self.db.executeQuery(query)
+	    query="select O.NAME,O.LINK from HAS_OS HS join OS O on O.ID=HS.OS_ID where HS.PC_ID={}".format(id)
+	    oss =  self.db.executeQuery(query)
+	    query="select O.NAME,O.LINK from HAS_SOFTWARE HS join SOFTWARE O on O.ID=HS.SOFTWARE_ID	where HS.PC_ID={}".format(id)
+	    softwares =  self.db.executeQuery(query)
+	    pc.append(oss)
+	    pc.append(softwares)
+	    return json.dumps(pc)
+		
+		
 	def retrive_ic(self,type):
 	    #retrive for ICs only , type is number less than 100 to get IC code
 	    check="where D.ID>{} and D.ID<{}".format(type*10000000,(type+1)*10000000)
-	    query="select * from DEVICE D join ICS I join IC_TYPE T on T.code=I.code on I.ID=D.ID {} order by D.overall_review/D.Num_reviews".format(check)
+	    query="select * from DEVICE D join ICS I join IC_TYPE T on T.code=I.code on I.ID=D.ID {} order by D.overall_review".format(check)
 	    data =  self.db.executeQuery(query)
 	    return json.dumps(data)
 
@@ -28,11 +50,17 @@ class User:
 
 	def retrive_pc(self,type):
 	    #retrive for PCs only , type is number less than 100 to get PC code
-	    check="where ID>{} and ID<{}".format(type*1000000,(type+1)*1000000)
-	    query="select * from DEVICE D join PCS P on P.ID = D.ID {} order by D.overall_review/D.Num_reviews, D.ID".format(check)
+	    check="where D.ID>{} and D.ID<{}".format(type*10000000,(type+1)*10000000)
+	    query="select * from DEVICE D join PCS P on P.ID = D.ID {} order by D.overall_review".format(check)
 	    data =  self.db.executeQuery(query)
 	    return json.dumps(data)
 
+
+	#this function adds a review to the database
+	def insertReview(self, sid, deviceid, opinion, rate):
+		date = self.db.executeQuery('select GETDATE()')
+		query = "insert into REVIEW (STUDENT_ID, DEVICE_ID, R_TIME, OPINION, RATE) values ({}, {}, {}, '{}', {})".format(sid, deviceid, date, opinion, rate)
+		self.db.executeNonQuery(query)
 
 
 	#this function retreives the reviews of devices and returns it in json string
@@ -40,6 +68,7 @@ class User:
 		query = 'select * from REVIEW'
 		data = self.db.executeQuery(query)
 		return json.dumps(data)
+	
 
 
 	#this function retreives the reviews of a specefic device
@@ -82,7 +111,6 @@ class User:
 		self.db.executeNonQuery(query1)
 
 
-
 	#this function updates points of students or techs
 	def updatePoints(self, type, id, points):
 		if type == 0:
@@ -91,3 +119,4 @@ class User:
 			query = 'update TECHNICIAN '
 		query += 'set POINTS = {} where ID = {}'.format(points, id)
 		self.db.executeNonQuery(query)
+

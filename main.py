@@ -18,37 +18,25 @@ u = User()
 s = Student()
 
 
+
 @app.route('/')
 def hello():
    return 'hello world'
 
 
-
-###############################################roba################################################################
-
 @app.route('/add_device',methods=['POST','GET'])
 def addevice():#return the addevice function url
 	if request.method == 'POST':
 		result = request.form
-		#return render_template("result.html",result = result)
 		result = dict(result)
-		if( result[''][0]>50000000 and id<60000000):
-			t.add_device(int(result[''][0]), result[''][1], result[''][2], result[''][3], result[''][4],result[''][5],result[''][6],result[''][7],result[''][8])
-		elif(result[''][0]>70000000):
-			t.add_device(int(result[''][0]), result[''][1], result[''][2], result[''][3], result[''][4],result[''][5])
-	return str(result[''])
-		
-@app.route('/add_pc',methods=['POST','GET'])
-def addpc():#return the addpc function url
-	if request.method == 'POST':
-		result = request.form
-		#return render_template("result.html",result = result)
-		result = dict(result)
-		
-		t.add_pc(int(result[''][0]), result[''][1], result[''][2], result[''][3], result[''][4])
+		if( int(result['id'][0])>50000000 and int(result['id'][0]) <60000000):
+			t.add_device(int(result['id'][0]), result['dtype'][0], int(result['location'][0]), result['state'][0], result['OVERALL_REVIEW'][0],result['NUM_REVIEWS'][0],result['tech_id'][0],result['CPU'][0],result['GPU'][0],result['RAM'][0])
+		elif(int(result['id'][0])>70000000 and int(result['id'][0])<80000000):
+			t.add_device(int(result['id'][0]), result['dtype'][0], int(result['location'][0]), result['state'][0], result['OVERALL_REVIEW'][0],result['NUM_REVIEWS'][0],result['tech_id'][0],result['code'][0])
+		else:
+			t.add_device(int(result['id'][0]),result['dtype'][0], int(result['location'][0]), int(result['state'][0]), int(result['OVERALL_REVIEW'][0]),int(result['NUM_REVIEWS'][0]),int(result['tech_id'][0]))
+		return json.dumps(result)
 
-	return str(result[''])
-		
 		
 		
 @app.route('/add_pc_os',methods=['POST','GET'])
@@ -57,33 +45,21 @@ def addpc_os():#return the addpc_os function url
 		result = request.form
 		#return render_template("result.html",result = result)
 		result = dict(result)
-	
-		t.add_pc_os(int(result[''][0]), result[''][1])
+		t.add_pc_os(int(result['pc_id'][0]), result['os_id'][0])
+	return json.dumps(result)
 
-	return str(result[''])
-			
 		
+
 @app.route('/add_pc_software',methods=['POST','GET'])
 def addpc_software():#return the addpc_os function url
 	if request.method == 'POST':
 		result = request.form
 		#return render_template("result.html",result = result)
 		result = dict(result)
-	
-		t.add_pc_software(int(result[''][0]), result[''][1])
-
-	return str(result[''])
+		t.add_pc_software(int(result['pc_id'][0]), result['software_id'][0])
+	return json.dumps(result)
 			
-@app.route('/add_ic',methods=['POST','GET'])
-def addic():#return the addpc_os function url
-	if request.method == 'POST':
-		result = request.form
-		#return render_template("result.html",result = result)
-		result = dict(result)
-	
-		t.add_ic(int(result[''][0]), result[''][1])
 
-	return str(result[''])
 			
 				
 @app.route('/update_devicestate',methods=['POST','GET'])
@@ -92,32 +68,34 @@ def updatedevicestate():#return the addpc_os function url
 		result = request.form
 		#return render_template("result.html",result = result)
 		result = dict(result)
-	
-		t.update_devicestate(int(result[''][0]), result[''][1])
+		t.update_devicestate(int(result['id'][0]), result['state'][0])
+	return json.dumps(result)
 
-	return str(result[''])
-			
+
+
 @app.route('/update_devicerate',methods=['POST','GET'])
 def updatedevicerate():#return the addpc_os function url
 	if request.method == 'POST':
 		result = request.form
 		#return render_template("result.html",result = result)
 		result = dict(result)
+		t.update_devicerate(int(result['id'][0]), result['r'][0])
+	return json.dumps(result)
 	
-		t.update_devicestate(int(result[''][0]), result[''][1])
+	
+@app.route('/retrive_table/<table>')
+def retriveTable (table):
+	return u.retrive_table(table)
+	
 
-	return str(result[''])
-	
 @app.route('/add_os',methods=['POST','GET'])
 def addos():#return the addpc_os function url
 	if request.method == 'POST':
 		result = request.form
-		#return render_template("result.html",result = result)
 		result = dict(result)
-	
-		t.add_os(int(result[''][0]), result[''][1],result[''][2])
+		t.add_os(int(result['id'][0]), result['name'][0],result['link'][0])
+	return json.dumps(result)
 
-	return str(result[''])
 
 @app.route('/add_software',methods=['POST','GET'])
 def addsoftware():#return the addpc_os function url
@@ -125,10 +103,10 @@ def addsoftware():#return the addpc_os function url
 		result = request.form
 		#return render_template("result.html",result = result)
 		result = dict(result)
-	
-		t.add_software(int(result[''][0]), result[''][1],result[''][2])
+		t.add_software(int(result['id'][0]), result['name'][0],result['link'][0])
+	return json.dumps(result)
 
-	return str(result[''])	
+
 
 @app.route('/add_ictype',methods=['POST','GET'])
 def addictype():#return the addpc_os function url
@@ -136,23 +114,28 @@ def addictype():#return the addpc_os function url
 		result = request.form
 		#return render_template("result.html",result = result)
 		result = dict(result)
-	
-		t.add_software(int(result[''][0]), result[''][1])
+		t.add_ictype(int(result['code'][0]), result['gate'][0])
+	return json.dumps(result)	
 			
-@app.route('/remove_ic',methods=['POST','GET'])
-def removeic():#return the addpc_os function url
+@app.route('/remove_Device',methods=['POST','GET'])
+def removeDevice():#return the addpc_os function url
 	if request.method == 'POST':
 		result = request.form
-		#return render_template("result.html",result = result)
 		result = dict(result)
-	
-		t.remove_ic(int(result[''][0]))
+		t.remove_device(int(result['id'][0]))
+	return json.dumps(result)
 
-	return str(result[''])	
+
 
 @app.route('/retrive_devices/<int:did>')
 def retdevices(did):
   return u.retrive_devices(did)
+
+
+@app.route('/retriveOnePC/<int:pcid>')
+def retrive1pc(pcid):
+	return u.retriveOnePC(pcid)
+
 
 ###############################################omar###########################################
 
@@ -185,6 +168,13 @@ def delUser(sid):
   m.deleteUser(sid)
 
 
+@app.route('/insertreview', methods = ['POST'])
+def insertrev():
+	if request.method == 'POST':
+		result = dict(request.form)
+		s.insertReview(result[''][0], result[''][1], result[''][2], result[''][3], result[''][4])
+
+
 @app.route('/getreviews')
 def getReviewsAPI():
   return u.getReviews()
@@ -201,6 +191,7 @@ def loginAPI():
     result = dict(request.form)
     return u.login(result[''][0], result[''][1])
 
+
 @app.route('/updateinfo', methods = ['POST'])
 def updateInfoAPI():
   if request.method == 'POST':
@@ -208,17 +199,10 @@ def updateInfoAPI():
     u.updateInfo(result[''][0], result[''][1], result[''][2])
 
 
+
+
 ##########################################hanin##############################################################################
 
-'''
-@app.route('/insertdemand', methods = ['POST' , 'GET'])
-def insertDemand():
-    if request.method == 'POST':
-        result = request.form
-        result = dict(result)
-        insertDemand(int(result[''][0]), int(result[''][1]), datetime(result[''][2]), datetime(result[''][3]))
-    return
-'''
 @app.route('/insertdemand', methods = ['POST'])
 def insertDemand():
     if request.method == 'POST':
@@ -246,8 +230,6 @@ def deleteDemand():
         result = request.form
         result = dict(result)
         s.removeDemand(result[''][0], result[''][1], result[''][2])
-        #return str(result)
-
 
 
 ####################################################################################################################
