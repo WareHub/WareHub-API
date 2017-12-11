@@ -14,8 +14,9 @@ class DBManager:
    				 r'UID=omarsgalal;'
    				 r'PWD=123456Omar')
 			self.cursor = self.conn.cursor()
+			self.success = True
 		except:
-			pass
+			self.success = False
 	
 
 
