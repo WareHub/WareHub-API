@@ -81,7 +81,7 @@ class User:
 	def login(self, id, password):
 		query = 'select PASS from USERS where ID = {}'.format(id)
 		data = self.db.executeQuery(query)
-		if len(data > 0):
+		if len(data) > 0:
 			hashpass = data[0][0]
 			return json.dumps(scrypt.verify(password, hashpass))
 		else:
