@@ -83,9 +83,17 @@ class User:
 		data = self.db.executeQuery(query)
 		if len(data) > 0:
 			hashpass = data[0][0]
-			return json.dumps(scrypt.verify(password, hashpass))
+			if scrypt.verify(password, hashpass):
+				if  self.db.executeQuery('select count(*) from MANAGER where ID = {}'.format(id))[0][0] > 0:
+					return json.dumps(0)
+				elif self.db.executeQuery('select count(*) from STUDENT where ID = {}'.format(id))[0][0] > 0:
+					return json.dumps(1)
+				else:
+					return json.dumps(2)
+			else:
+				return json.dumps(-1)
 		else:
-			return json.dumps(False)
+			return json.dumps(-1)
 
 
 
