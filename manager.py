@@ -13,8 +13,10 @@ class Manager(User):
 
 	#this function adds managers, students, technetians to the database
 	#only managers can call this functions
-	def insertUser(self, type, id, name, password, phone, isTA = 0, points = 0):
+	def insertUser(self, type, name, password, phone, isTA = 0, points = 0):
 		hashpass = scrypt.encrypt(password)
+
+		id = (self.db.executeQuery('select max(ID) from USERS')[0][0]) + 1
 
 		query2 = "insert into USERS (ID, PASS) values ({}, '{}')".format(id, hashpass)	
 		#manager
