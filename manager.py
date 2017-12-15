@@ -62,6 +62,12 @@ class Manager(User):
 		data = self.db.executeQuery(query)
 		return json.dumps(data)
 
+	#this function retrieves one manager using id
+	def getManager(self, id):
+		query = 'select * from MANAGER where ID = {}'.format(id)
+		data = self.db.executeQuery(query)
+		return json.dumps(data)
+
 	#this function deletes a tech using id
 	def deleteUser(self, id):
 		query = 'delete from USERS where ID = {}'.format(id)

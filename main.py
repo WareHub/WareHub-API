@@ -198,6 +198,10 @@ def updateInfoAPI():
     result = dict(request.form)
     u.updateInfo(int(result[''][0]), result[''][1], result[''][2],  result[''][3])
 
+@app.route('/getmanager/<int:mID>')
+def getManager(mID):
+	return m.getManager(mID)
+
 
 
 
