@@ -196,7 +196,7 @@ def loginAPI():
 def updateInfoAPI():
   if request.method == 'POST':
     result = dict(request.form)
-    u.updateInfo(result[''][0], result[''][1], result[''][2])
+    u.updateInfo(int(result[''][0]), result[''][1], result[''][2],  result[''][3])
 
 
 
