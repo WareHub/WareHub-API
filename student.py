@@ -25,19 +25,22 @@ class Student(User):
         if len(table) == 0:
             query = "INSERT INTO DEMAND VALUES ({}, {}, convert(datetime2, '{}'), convert(datetime2, '{}'), 1, 0)".format(stID, devID, startT, endT)
             #print (query)
-            self.db.executeNonQuery(query)
+            try:
+                self.db.executeNonQuery(query)
             return json.dumps(1)
 
         #if there's an overlap (only one) we check the time 
         elif len(table) == 1 and datetime.datetime.now() > table[0][2] and (not table[0][5]):
             query = "INSERT INTO DEMAND VALUES ({}, {}, convert(datetime2, '{}'), convert(datetime2, '{}'), 1, 0)".format(stID, devID, startT, endT)
-            self.db.executeNonQuery(query)
+            try:
+                self.db.executeNonQuery(query)
             return json.dumps(1)
                                                             
         else:
             query = "INSERT INTO DEMAND VALUES ({}, {}, convert(datetime2, '{}'), convert(datetime2, '{}'), 0, 0)".format(stID, devID, startT, endT)
             #print (query)
-            self.db.executeNonQuery(query)
+            try:
+                self.db.executeNonQuery(query)
             #return json.dumps(table)
             return json.dumps(0)
     
