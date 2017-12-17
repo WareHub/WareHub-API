@@ -90,3 +90,7 @@ class Technician(User):
         return json.dumps(data)
 
 
+    def setInUse(self, sID, dID, sDate):
+        query = "UPDATE DEMAND SET INUSE = 1 where STUDENT_ID = {} and DEVICE_ID = {} and START_TIME = CONVERT(datetime2, '{}')".format(sID, dID, sDate)
+        self.db.executeNonQuery(query)
+

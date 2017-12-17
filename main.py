@@ -203,6 +203,11 @@ def getManager(mID):
 	return m.getManager(mID)
 
 
+@app.route('/setinuse', methods = ['POST'])
+def setUsage():
+	if request.method == 'POST':
+		result = dict(request.form)
+		t.setInUse(result[''][0], result[''][1], result[''][2])
 
 
 ##########################################hanin##############################################################################
