@@ -61,13 +61,15 @@ class Technician(User):
         self.db.executeNonQuery(query)
         return
 
-    def add_os(self, id, name, link) :
+    def add_os(self, name, link) :
+        id = (self.db.executeQuery('select max(ID) from os')[0][0]) + 1
         query = "insert into  OS(ID,NAME,LINK ) values(" + str(id) + "," + " '"+str(name) +"'"+ "," +" '"+ str(link)+" '" + ")"
         #print(query)
         self.db.executeNonQuery(query)
         return
 
-    def add_software(self, id, name, link) :
+    def add_software(self, name, link) :
+        id = (self.db.executeQuery('select max(ID) from software')[0][0]) + 1
         query = "insert into SOFTWARE(ID,NAME,LINK ) values(" + str(id) + "," +"'"+ str(name)+"'" + "," +"'" +str(link)+"'" + ")"
         #print(query)
         self.db.executeNonQuery(query)

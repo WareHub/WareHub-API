@@ -93,7 +93,7 @@ def addos():#return the addpc_os function url
 	if request.method == 'POST':
 		result = request.form
 		result = dict(result)
-		t.add_os(int(result['id'][0]), result['name'][0],result['link'][0])
+		t.add_os(result['name'][0],result['link'][0])
 	return json.dumps(result)
 
 
@@ -103,7 +103,7 @@ def addsoftware():#return the addpc_os function url
 		result = request.form
 		#return render_template("result.html",result = result)
 		result = dict(result)
-		t.add_software(int(result['id'][0]), result['name'][0],result['link'][0])
+		t.add_software(result['name'][0], result['link'][0])
 	return json.dumps(result)
 
 
