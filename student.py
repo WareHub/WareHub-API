@@ -54,8 +54,8 @@ class Student(User):
         return json.dumps(data) 
 
     #this function adds a review to the database
-    def insertReview(self, sid, deviceid, opinion, rate, date):
-        query = "insert into REVIEW (STUDENT_ID, DEVICE_ID, R_TIME, OPINION, RATE) values ({}, {}, convert(datetime2, '{}'), '{}', {})".format(sid, deviceid, date, opinion, rate)
+    def insertReview(self, sid, deviceid, date, opinion, rate):
+        query = "insert into REVIEW (STUDENT_ID, DEVICE_ID, R_TIME, OPININON, RATE) values ({}, {}, convert(datetime2, '{}'), '{}', {})".format(sid, deviceid, date, opinion, rate)
         self.db.executeNonQuery(query)
 		
 	
