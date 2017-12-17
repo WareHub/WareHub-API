@@ -66,6 +66,9 @@ class User:
 	def getReviews(self):
 		query = 'select * from REVIEW'
 		data = self.db.executeQuery(query)
+		for i in range(len(data)):
+			data[i] = list(data[i])
+			data[i][2] = str(data[i][2])
 		return json.dumps(data)
 	
 
@@ -74,6 +77,9 @@ class User:
 	def getReviewsDevice(self, id):
 		query = 'select * from REVIEW where DEVICE_ID = {}'.format(id)
 		data = self.db.executeQuery(query)
+		for i in range(len(data)):
+			data[i] = list(data[i])
+			data[i][2] = str(data[i][2])
 		return json.dumps(data)
 
 	#this function checks if password is ture of false
