@@ -44,7 +44,7 @@ class Technician(User):
         self.db.executeNonQuery(query)
 
 
-    def update_devicestate(self, id, state) :
+    def update_devicestate(self, id, state):
         query = "  update DEVICE set STAT =" + str(state) + "where ID =" + str(id) 
         #print(query)
         self.db.executeNonQuery(query)
@@ -62,21 +62,30 @@ class Technician(User):
         return
 
     def add_os(self, name, link) :
-        id = (self.db.executeQuery('select max(ID) from os')[0][0]) + 1
+        try:
+            id = (self.db.executeQuery('select max(ID) from os')[0][0]) + 1
+        except TypeError:
+            id = 1
         query = "insert into  OS(ID,NAME,LINK ) values(" + str(id) + "," + " '"+str(name) +"'"+ "," +" '"+ str(link)+" '" + ")"
         #print(query)
         self.db.executeNonQuery(query)
         return
 
     def add_software(self, name, link) :
-        id = (self.db.executeQuery('select max(ID) from software')[0][0]) + 1
+        try:
+            id = (self.db.executeQuery('select max(ID) from software')[0][0]) + 1
+        except TypeError:
+            id = 1
         query = "insert into SOFTWARE(ID,NAME,LINK ) values(" + str(id) + "," +"'"+ str(name)+"'" + "," +"'" +str(link)+"'" + ")"
         #print(query)
         self.db.executeNonQuery(query)
         return
 
     def add_ictype(self, Gate , link) :
-        query = "insert into  IC_TYPE(CODE,link ) values(" +str(Gate) + "," + "'"+str(link)+"'" + ")"
+        try:
+            query = "insert into  IC_TYPE(CODE,link ) values(" +str(Gate) + "," + "'"+str(link)+"'" + ")"
+        except TypeError:
+            id = 1
         #print(query)
         self.db.executeNonQuery(query)
         return
