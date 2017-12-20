@@ -61,13 +61,11 @@ def addpc_software():#return the addpc_os function url
 
 @app.route('/getsoftware')
 def getSoftware():#return the addpc_os function url
-	result=t.getSoftware()
-	return json.dumps(result)
+	return t.getSoftware()
 
 @app.route('/getOS')
 def getOS():#return the addpc_os function url
-	result=t.getOS()
-	return json.dumps(result)
+	return t.getOS()
 				
 @app.route('/update_devicestate',methods=['POST','GET'])
 def updatedevicestate():#return the addpc_os function url
