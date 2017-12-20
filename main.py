@@ -58,9 +58,16 @@ def addpc_software():#return the addpc_os function url
 		result = dict(result)
 		t.add_pc_software(int(result['pc_id'][0]), result['software_id'][0])
 	return json.dumps(result)
-			
 
-			
+@app.route('/getsoftware')
+def getSoftware():#return the addpc_os function url
+	result=t.getSoftware()
+	return json.dumps(result)
+
+@app.route('/getOS')
+def getOS():#return the addpc_os function url
+	result=t.getOS()
+	return json.dumps(result)
 				
 @app.route('/update_devicestate',methods=['POST','GET'])
 def updatedevicestate():#return the addpc_os function url
