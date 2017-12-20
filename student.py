@@ -16,10 +16,10 @@ class Student(User):
         query = "SELECT* FROM DEMAND WHERE DEVICE_ID = {} AND RESERVED = 1 AND ((START_TIME <= convert(datetime2, '{}') AND END_TIME >= convert(datetime2, '{}')) OR (START_TIME <= convert(datetime2, '{}') AND END_TIME >= convert(datetime2, '{}')) \
                     OR (START_TIME >= convert(datetime2, '{}') AND END_TIME <= convert(datetime2, '{}')) OR  (START_TIME <= convert(datetime2, '{}') AND END_TIME >= convert(datetime2, '{}')))".format(devID, startT, startT, endT, endT, startT, endT, startT, endT)
         table = self.db.executeQuery(query)
-        for i in range(len(table)):
+        '''for i in range(len(table)):
             table[i] = list(table[i])
             table[i][2] = str(table[i][2])
-            table[i][3] = str(table[i][3])
+            table[i][3] = str(table[i][3])'''
 
         #if no overlaps demand is inserted and accepted (reserved = 1)
         if len(table) == 0:
@@ -29,7 +29,9 @@ class Student(User):
             return json.dumps(1)
 
         #if there's an overlap (only one) we check the time 
-        elif len(table) == 1 and datetime.datetime.now() > table[0][2] and (not table[0][5]):
+        nowTime = datetime.datetime.now() + datetime.timedelta(hours = 2)
+
+        elif len(table) == 1 and nowTime > table[0][2] and (table[0][5] != 1):
             query = "INSERT INTO DEMAND VALUES ({}, {}, convert(datetime2, '{}'), convert(datetime2, '{}'), 1, 0)".format(stID, devID, startT, endT)
             self.db.executeNonQuery(query)
             return json.dumps(1)
