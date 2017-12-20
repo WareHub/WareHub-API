@@ -217,7 +217,7 @@ def insertDemand():
     if request.method == 'POST':
         result = request.form
         result = dict(result)
-        s.insertDemand(result['stID'][0], result['devID'][0], result['startT'][0], result['endT'][0])
+        s.insertDemand(result[''][0], result[''][1], result[''][2], result[''][3])
         
 
 
