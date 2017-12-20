@@ -101,7 +101,16 @@ class Technician(User):
             data[i][3] = str(data[i][3])
         return json.dumps(data)
 
+    def getSoftware(self):
+        query = 'SELECT * from SOFTWARE'
+        data = self.db.executeQuery(query)
+        return json.dumps(data)
 
+    def getOS(self):
+        query = 'SELECT * from OS'
+        data = self.db.executeQuery(query)
+        return json.dumps(data)
+        
     def setInUse(self, sID, dID, sDate):
         query = "UPDATE DEMAND SET INUSE = 1 where STUDENT_ID = {} and DEVICE_ID = {} and START_TIME = CONVERT(datetime2, '{}')".format(sID, dID, sDate)
         self.db.executeNonQuery(query)

@@ -253,40 +253,38 @@ def getcrowded_day():
 	
 @app.route('/getmostused_ic')	
 def mostused__ic():
-	return m.mostused_ic()
 		
 		
+		return m.mostused_ic()
+		
+		
+		
+	
 @app.route('/getmostused_pc')	
 def mostused__pc():
-	return m.mostused_pc()
+		
+		return m.mostused_pc()
 
 
 @app.route('/getmostused_software')	
 def mostused__software():
-	return  m.mostused_software()
+		
+		return  m.mostused_software()
 
 @app.route('/getmostused_os')			
 def mostused__os():
-	return m.mostused_os()
-
-
+		return m.mostused_os()
 @app.route('/getmostdemanded_pcs')			
 def mostdemanded__pcs():
-	return m.mostdemanded_pcs()
-
+		return m.mostdemanded_pcs()
 @app.route('/getmostdemanded_ic')			
 def mostdemanded__ic():
-	return m.mostdemanded_ic()
+		return m.mostdemanded_ic()
  	
 	
-@app.route('/getmostvisited_ic')			
+@app.route('/getmostdemanded_ic')			
 def mostvisited():
-	return m.mostvisited()
-
-
-@app.route('/getcomplains')
-def complains():
-	return m.getcomplain()
+		return m.mostvisited()
  		
 	
 	
