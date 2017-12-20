@@ -217,7 +217,7 @@ def insertDemand():
     if request.method == 'POST':
         result = request.form
         result = dict(result)
-        s.insertDemand(result[''][0], result[''][1], result[''][2], result[''][3])
+        s.insertDemand(result['stID'][0], result['devID'][0], result['startT'][0], result['endT'][0])
         
 
 
@@ -241,10 +241,60 @@ def deleteDemand():
         s.removeDemand(result[''][0], result[''][1], result[''][2])
 
 
-####################################################################################################################
+###############################################stats################################################################
+@app.route('/getrushhour')
+def getrush_hour():
+	return m.rushhour()
 
 
+@app.route('/getcrowded_day')
+def getcrowded_day():
+	return m.crowdedday()
+	
+@app.route('/getmostused_ic')	
+def mostused__ic():
+		
+		
+		return m.mostused_ic()
+		
+		
+		
+	
+@app.route('/getmostused_pc')	
+def mostused__pc():
+		
+		return m.mostused_pc()
 
+
+@app.route('/getmostused_software')	
+def mostused__software():
+		
+		return  m.mostused_software()
+
+@app.route('/getmostused_os')			
+def mostused__os():
+		return m.mostused_os()
+@app.route('/getmostdemanded_pcs')			
+def mostdemanded__pcs():
+		return m.mostdemanded_pcs()
+@app.route('/getmostdemanded_ic')			
+def mostdemanded__ic():
+		return m.mostdemanded_ic()
+ 	
+	
+@app.route('/getmostdemanded_ic')			
+def mostvisited():
+		return m.mostvisited()
+ 		
+	
+	
+	
+	
+	
+	
+	
+	
+###########################################################################################################################################	
 
 if __name__ == '__main__':
    app.run(debug = True)
