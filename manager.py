@@ -74,3 +74,64 @@ class Manager(User):
 	def deleteUser(self, id):
 		query = 'delete from USERS where ID = {}'.format(id)
 		self.db.executeNonQuery(query)
+    #this function to get the rushhour of demands 
+	
+	def rushhour(self):
+		query = 'select cast(START_TIME as time)as demand_time, count(*) as demand_count from  DEMAND Group by cast(START_TIME as time) Order By count(*) Desc'
+		
+		data = self.db.executeQuery(query)
+		return json.dumps(data)
+
+	 #this function to get the rushday  of demands 	
+	def	crowdedday(self):
+		query='select cast(START_TIME as date), count(*) as demand_count from DEMAND Group by cast(START_TIME as date) Order By count(*) Desc'
+		data=self.db.executeQuery(query)
+		return json.dumps(data)
+		
+	def getcomplain():
+		query='SELECT ID, DTYPE, LOCATION, STAT, OVERALL_REVIEW, NUM_REVIEWS, TECH_ID, COUNT(*) AS COMPLAIN_COUNT FROM DEVICE, REVIEW WHERE DEVICE_ID = ID AND RATE < 3GROUP BY ID, DTYPE, STAT, OVERALL_REVIEW, NUM_REVIEWS, TECH_ID, ID, DTYPE, LOCATION ORDER BY COMPLAIN_COUNT DESC'
+		data=self.db.executeQuery(query)
+		return json.dumps(data)
+		
+	def mostused_ic():
+		query='SELECT I.CODE, COUNT(*) AS USES FROM IC_TYPE AS T , DEMAND, ICS AS I WHERE  ID = DEVICE_ID AND I.CODE = T.CODE AND INUSE = 2 GROUP BY I.CODE ORDER BY USES DESC'
+		data=self.db.executeQuery(query)
+		return json.dumps(data)
+		
+		
+		
+	
+
+	def mostused_pc():
+		query='SELECT CPU, GPU, RAM, OS_ID, COUNT(*) AS USES FROM PCS AS PC, DEMAND AS D, HAS_OS AS HOS WHERE PC.ID = D.DEVICE_ID AND HOS.PC_ID = PC.ID AND INUSE = 2 GROUP BY CPU, GPU, RAM, OS_ID ORDER BY USES DESC'		
+
+		data=self.db.executeQuery(query)
+		return json.dumps(data)
+
+
+
+
+	def mostused_software():
+		query='SELECT SOFTWARE_ID, COUNT(*) AS USES FROM HAS_SOFTWARE, DEMAND WHERE PC_ID = DEVICE_ID AND INUSE = 2 GROUP BY SOFTWARE_ID ORDER BY USES DESC'
+		data=self.db.executeQuery(query)
+		return json.dumps(data)
+
+		
+	def mostused_os():
+		query='SELECT OS_ID, COUNT(*) AS USES FROM HAS_OS, DEMAND WHERE PC_ID = DEVICE_ID AND INUSE = 2 GROUP BY OS_ID ORDER BY USES DESC'
+		data=self.db.executeQuery(query)
+		return json.dumps(data)
+	def mostdemanded_pcs():
+		query='SELECT CPU, GPU, RAM, OS_ID, COUNT(*) AS USES FROM PCS AS PC, DEMAND AS D, HAS_OS AS HOS WHERE PC.ID = D.DEVICE_ID AND HOS.PC_ID = PC.ID GROUP BY CPU, GPU, RAM, OS_ID ORDER BY USES DESC'
+		data=self.db.executeQuery(query)
+		return json.dumps(data)
+		
+	def mostdemanded_ic():
+		query='--SELECTS MOST DEMANDED (ACCEPTED OR NOT) SOFTWARES SELECT SOFTWARE_ID, COUNT(*) AS USES FROM HAS_SOFTWARE, DEMAND WHERE PC_ID = DEVICE_ID GROUP BY SOFTWARE_ID ORDER BY USES DESC'
+		data=self.db.executeQuery(query)
+		return json.dumps(data)
+ 
+	def mostvisted():
+		query='SELECT LOCATION, COUNT(*) AS VISITS_COUNT FROM DEVICE, DEMAND WHERE DEVICE_ID = ID AND INUSE = 2 GROUP BY LOCATION ORDER BY VISITS_COUNT DESC'
+		data=self.db.executeQuery(query)
+		return json.dumps(data)
