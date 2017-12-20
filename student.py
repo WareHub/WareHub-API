@@ -22,6 +22,7 @@ class Student(User):
             table[i][3] = str(table[i][3])'''
 
         #if no overlaps demand is inserted and accepted (reserved = 1)
+        nowTime = datetime.datetime.now() + datetime.timedelta(hours = 2)
         if len(table) == 0:
             query = "INSERT INTO DEMAND VALUES ({}, {}, convert(datetime2, '{}'), convert(datetime2, '{}'), 1, 0)".format(stID, devID, startT, endT)
             #print (query)
@@ -29,9 +30,9 @@ class Student(User):
             return json.dumps(1)
 
         #if there's an overlap (only one) we check the time 
-        nowTime = datetime.datetime.now() + datetime.timedelta(hours = 2)
+       
 
-        elif len(table) == 1 and nowTime > table[0][2] and (table[0][5] != 1):
+        elif (len(table) == 1) and (nowTime > table[0][2]) and (table[0][5] != 1):
             query = "INSERT INTO DEMAND VALUES ({}, {}, convert(datetime2, '{}'), convert(datetime2, '{}'), 1, 0)".format(stID, devID, startT, endT)
             self.db.executeNonQuery(query)
             return json.dumps(1)
