@@ -8,7 +8,8 @@ class Technician(User):
 
 
     def add_device(self, id, dtype, location, state, OVERALL_REVIEW,NUM_REVIEWS,tech_id, *args) :
-        query = "insert into DEVICE(ID,DTYPE,LOCATION,STAT,OVERALL_REVIEW,NUM_REVIEWS,TECH_ID) Values(" + str(id) + "," +str(dtype)+ ","+str(location) + "," + str(state)+","+ OVERALL_REVIEW+ "," + NUM_REVIEWS + "," + str(tech_id) + ")"
+        query = "insert into DEVICE(ID,DTYPE,LOCATION,STAT,OVERALL_REVIEW,NUM_REVIEWS,TECH_ID) Values({}, '{}', {}, {}, {}, {}, {})".format(id, dtype, location, state, OVERALL_REVIEW, NUM_REVIEWS, tech_id)
+        #query = "insert into DEVICE(ID,DTYPE,LOCATION,STAT,OVERALL_REVIEW,NUM_REVIEWS,TECH_ID) Values(" + str(id) + ",'" +str(dtype)+ "',"+str(location) + "," + str(state)+","+ str(OVERALL_REVIEW)+ "," + NUM_REVIEWS + "," + str(tech_id) + ")"
         print(query)
         self.db.executeNonQuery(query)
         come=int(int(id)/10000000)

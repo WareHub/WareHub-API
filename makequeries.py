@@ -2,7 +2,7 @@ from passlib.hash import sha256_crypt as scrypt
 
 id = 10000000
 name = "'student"
-password = "'0000'"
+password = '0000'
 phone = 201000000000
 name2 = "'tech"
 ta = '0'
@@ -10,7 +10,7 @@ points = 0
 
 file = open('insertqueries.sql', 'w')
 
-query = "insert into USERS values({}, '{}'')".format(id, scrypt.encrypt(password))
+query = "insert into USERS values({}, '{}')".format(id, scrypt.encrypt(password))
 file.write(query + '\n')
 query = "insert into MANAGER values ({}, '{}', {})".format(id, "manager1", phone)
 file.write(query + '\n')
