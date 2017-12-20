@@ -77,14 +77,16 @@ class Manager(User):
     #this function to get the rushhour of demands 
 	
 	def rushhour(self):
-		query = 'select cast(START_TIME as time)as demand_time, count(*) as demand_count from  DEMAND Group by cast(START_TIME as time) Order By count(*) Desc'
-		
+		query = 'select cast(CONVERT(TIME(0), [START_TIME]) AS time)as demand_time, count(*) as demand_count from  DEMAND Group by cast(CONVERT(TIME(0), [START_TIME]) AS time) Order By count(*) Desc'
 		data = self.db.executeQuery(query)
+		for i in range(len(data)):
+			data[i] = list(data[i])
+			data[i][0] = str(data[i][0])[:8]
 		return json.dumps(data)
 
 	 #this function to get the rushday  of demands 	
 	def	crowdedday(self):
-		query='select cast(START_TIME as date), count(*) as demand_count from DEMAND Group by cast(START_TIME as date) Order By count(*) Desc'
+		query='select cast(START_TIME as date) as time, count(*) as demand_count from DEMAND Group by cast(START_TIME as date) Order By count(*) Desc'
 		data=self.db.executeQuery(query)
 		return json.dumps(data)
 		
@@ -98,17 +100,12 @@ class Manager(User):
 		data=self.db.executeQuery(query)
 		return json.dumps(data)
 		
-		
-		
-	
 
 	def mostused_pc():
 		query='SELECT CPU, GPU, RAM, OS_ID, COUNT(*) AS USES FROM PCS AS PC, DEMAND AS D, HAS_OS AS HOS WHERE PC.ID = D.DEVICE_ID AND HOS.PC_ID = PC.ID AND INUSE = 2 GROUP BY CPU, GPU, RAM, OS_ID ORDER BY USES DESC'		
 
 		data=self.db.executeQuery(query)
 		return json.dumps(data)
-
-
 
 
 	def mostused_software():
@@ -127,7 +124,7 @@ class Manager(User):
 		return json.dumps(data)
 		
 	def mostdemanded_ic():
-		query='--SELECTS MOST DEMANDED (ACCEPTED OR NOT) SOFTWARES SELECT SOFTWARE_ID, COUNT(*) AS USES FROM HAS_SOFTWARE, DEMAND WHERE PC_ID = DEVICE_ID GROUP BY SOFTWARE_ID ORDER BY USES DESC'
+		query='SELECTS MOST DEMANDED (ACCEPTED OR NOT) SOFTWARES SELECT SOFTWARE_ID, COUNT(*) AS USES FROM HAS_SOFTWARE, DEMAND WHERE PC_ID = DEVICE_ID GROUP BY SOFTWARE_ID ORDER BY USES DESC'
 		data=self.db.executeQuery(query)
 		return json.dumps(data)
  
