@@ -86,7 +86,7 @@ class Manager(User):
 
 	 #this function to get the rushday  of demands 	
 	def	crowdedday(self):
-		query='select cast(START_TIME as date) as time, count(*) as demand_count from DEMAND Group by cast(START_TIME as date) Order By count(*) Desc'
+		query='select cast(START_TIME as date) as time, count(*) as demand_count from DEMAND Group by cast(START_TIME as date) Order By cast(START_TIME as date)'
 		data=self.db.executeQuery(query)
 		for i in range(len(data)):
 			data[i] = list(data[i])
