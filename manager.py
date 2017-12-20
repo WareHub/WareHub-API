@@ -77,7 +77,7 @@ class Manager(User):
     #this function to get the rushhour of demands 
 	
 	def rushhour(self):
-		query = 'select cast(CONVERT(TIME(0), [START_TIME]) AS time)as demand_time, count(*) as demand_count from  DEMAND Group by cast(CONVERT(TIME(0), [START_TIME]) AS time) Order By count(*) Desc'
+		query = 'select cast(CONVERT(TIME(0), [START_TIME]) AS time)as demand_time, count(*) as demand_count from  DEMAND Group by cast(CONVERT(TIME(0), [START_TIME]) AS time) Order By cast(CONVERT(TIME(0), [START_TIME]) AS time)'
 		data = self.db.executeQuery(query)
 		for i in range(len(data)):
 			data[i] = list(data[i])
