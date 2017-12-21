@@ -115,6 +115,11 @@ class Technician(User):
         return json.dumps(data)
         
     def setInUse(self, sID, dID, sDate):
-        query = "UPDATE DEMAND SET INUSE = INUSE + 1 where STUDENT_ID = {} and DEVICE_ID = {} and START_TIME = CONVERT(datetime2, '{}')".format(sID, dID, sDate)
+        sDate=datetime.strtime(sDate)
+        sDate=sDate.split(".")[0]
+        sDate2=sDate
+        if not sDate2[-1]=='9':
+            sDate2[-1]=int(sDate2[-1])+1
+        query = "UPDATE DEMAND SET INUSE = INUSE + 1 where STUDENT_ID = {} and DEVICE_ID = {} and START_TIME <= CONVERT(datetime2, '{}') and START_TIME >= CONVERT(datetime2, '{}')".format(sID, dID, sDate2,sDate)
         self.db.executeNonQuery(query)
 
