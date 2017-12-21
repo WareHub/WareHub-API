@@ -258,9 +258,7 @@ def getcrowded_day():
 	
 @app.route('/getmostused_ic')	
 def mostused__ic():
-		
-		
-		return m.mostused_ic()
+	return m.mostused_ic()
 		
 		
 		

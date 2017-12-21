@@ -77,7 +77,7 @@ class Manager(User):
     #this function to get the rushhour of demands 
 	
 	def rushhour(self):
-		query = 'select cast(CONVERT(TIME(0), [START_TIME]) AS time)as demand_time, count(*) as demand_count from  DEMAND Group by cast(CONVERT(TIME(0), [START_TIME]) AS time) Order By demand_count desc'
+		query = 'select   AS time)as demand_time, count(*) as demand_count from  DEMAND Group by cast(CONVERT(TIME(0), [START_TIME]) AS time) Order By demand_count desc'
 		data = self.db.executeQuery(query)
 		for i in range(len(data)):
 			data[i] = list(data[i])
@@ -99,13 +99,13 @@ class Manager(User):
 		return json.dumps(data)
 		
 	def mostused_ic(self):
-		query='SELECT I.CODE, COUNT(*) AS USES FROM IC_TYPE AS T , DEMAND, ICS AS I WHERE  ID = DEVICE_ID AND I.CODE = T.CODE AND INUSE = 2 GROUP BY I.CODE ORDER BY USES DESC'
+		query='SELECT I.CODE, COUNT(*) AS USES FROM ICS, DEMAND AS D WHERE ICS.ID = D.DEVICE_ID AND INUSE = 2 GROUP BY CODE ORDER BY USES DESC'
 		data=self.db.executeQuery(query)
 		return json.dumps(data)
 		
 
 	def mostused_pc(self):
-		query='SELECT CPU, GPU, RAM, OS_ID, COUNT(*) AS USES FROM PCS AS PC, DEMAND AS D, HAS_OS AS HOS WHERE PC.ID = D.DEVICE_ID AND HOS.PC_ID = PC.ID AND INUSE = 2 GROUP BY CPU, GPU, RAM, OS_ID ORDER BY USES DESC'		
+		query='SELECT PC.ID, COUNT(*) AS USES FROM PCS AS PC, DEMAND AS D WHERE PC.ID = D.DEVICE_ID AND INUSE = 2 GROUP BY PC.ID ORDER BY USES DESC'		
 
 		data=self.db.executeQuery(query)
 		return json.dumps(data)
