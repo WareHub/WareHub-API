@@ -120,6 +120,6 @@ class Technician(User):
         sDate3 = sDate2[:-1]
         if not sDate2[-1]=='9':
             sDate3 += str(int(sDate2[-1])+1)
-        query = "UPDATE DEMAND SET INUSE = INUSE + 3 where STUDENT_ID = {} and DEVICE_ID = {} and START_TIME <= CONVERT(datetime2, '{}') and START_TIME >= CONVERT(datetime2, '{}')".format(sID, dID, sDate3,sDate)
+        query = "UPDATE DEMAND SET INUSE = (INUSE + 3 - 2) where STUDENT_ID = {} and DEVICE_ID = {} and START_TIME <= CONVERT(datetime2, '{}') and START_TIME >= CONVERT(datetime2, '{}')".format(sID, dID, sDate3,sDate)
         self.db.executeNonQuery(query)
 
