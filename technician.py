@@ -94,7 +94,7 @@ class Technician(User):
         return
 
     def retrieveDemand_Tech(self, techID):
-        query = 'SELECT STUDENT_ID, DEVICE_ID, START_TIME, END_TIME, RESERVED, INUSE FROM DEMAND join DEVICE on ID = DEVICE_ID WHERE TECH_ID = {}'.format(techID)
+        query = 'SELECT STUDENT_ID, DEVICE_ID, START_TIME, END_TIME, RESERVED, INUSE FROM DEMAND join DEVICE on ID = DEVICE_ID WHERE TECH_ID = {}  AND NOT(INUSE = 2)'.format(techID)
         #print (query)
         data = self.db.executeQuery(query)
         
@@ -115,6 +115,6 @@ class Technician(User):
         return json.dumps(data)
         
     def setInUse(self, sID, dID, sDate):
-        query = "UPDATE DEMAND SET INUSE = 1 where STUDENT_ID = {} and DEVICE_ID = {} and START_TIME = CONVERT(datetime2, '{}')".format(sID, dID, sDate)
+        query = "UPDATE DEMAND SET INUSE = INUSE + 1 where STUDENT_ID = {} and DEVICE_ID = {} and START_TIME = CONVERT(datetime2, '{}')".format(sID, dID, sDate)
         self.db.executeNonQuery(query)
 
