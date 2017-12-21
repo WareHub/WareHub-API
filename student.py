@@ -28,8 +28,6 @@ class Student(User):
             query = "INSERT INTO DEMAND VALUES ({}, {}, convert(datetime2, '{}'), convert(datetime2, '{}'), 1, 0)".format(stID, devID, startT, endT)
             #print (query)
             self.db.executeNonQuery(query)
-            query= "update Student set POINTS=POINTS+5 where ID={}".format(stID)
-            self.db.executeNonQuery(query)
             return json.dumps(1)
 
         #if there's an overlap (only one) we check the time 
@@ -61,6 +59,8 @@ class Student(User):
 
     #this function adds a review to the database
     def insertReview(self, sid, deviceid, date, opinion, rate):
+        query= "update STUDENT set POINTS=POINTS+5 where ID={}".format(stID)
+        self.db.executeNonQuery(query)
         query = "insert into REVIEW (STUDENT_ID, DEVICE_ID, R_TIME, OPININON, RATE) values ({}, {}, convert(datetime2, '{}'), '{}', {})".format(sid, deviceid, date, opinion, rate)
         self.db.executeNonQuery(query)
 		
