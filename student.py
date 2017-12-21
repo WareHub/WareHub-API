@@ -16,6 +16,7 @@ class Student(User):
         query = "SELECT* FROM DEMAND WHERE DEVICE_ID = {} AND RESERVED = 1 AND ((START_TIME <= convert(datetime2, '{}') AND END_TIME >= convert(datetime2, '{}')) OR (START_TIME <= convert(datetime2, '{}') AND END_TIME >= convert(datetime2, '{}')) \
                     OR (START_TIME >= convert(datetime2, '{}') AND END_TIME <= convert(datetime2, '{}')) OR  (START_TIME <= convert(datetime2, '{}') AND END_TIME >= convert(datetime2, '{}')))".format(devID, startT, startT, endT, endT, startT, endT, startT, endT)
         table = self.db.executeQuery(query)
+        
         '''for i in range(len(table)):
             table[i] = list(table[i])
             table[i][2] = str(table[i][2])
@@ -26,6 +27,8 @@ class Student(User):
         if len(table) == 0:
             query = "INSERT INTO DEMAND VALUES ({}, {}, convert(datetime2, '{}'), convert(datetime2, '{}'), 1, 0)".format(stID, devID, startT, endT)
             #print (query)
+            self.db.executeNonQuery(query)
+            query= "update Student set POINTS=POINTS+5 where ID={}".format(stID)
             self.db.executeNonQuery(query)
             return json.dumps(1)
 
