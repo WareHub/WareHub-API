@@ -94,7 +94,7 @@ class Technician(User):
         return
 
     def retrieveDemand_Tech(self, techID):
-        query= "update TECHNICIAN set POINTS=POINTS+4 where ID={}".format(tech_id)
+        query= "update TECHNICIAN set POINTS=POINTS+4 where ID={}".format(techID)
         self.db.executeNonnQuery(query)
         query = 'SELECT STUDENT_ID, DEVICE_ID, START_TIME, END_TIME, RESERVED, INUSE FROM DEMAND join DEVICE on ID = DEVICE_ID WHERE TECH_ID = {}'.format(techID)
         #print (query)
