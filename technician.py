@@ -12,6 +12,7 @@ class Technician(User):
         #query = "insert into DEVICE(ID,DTYPE,LOCATION,STAT,OVERALL_REVIEW,NUM_REVIEWS,TECH_ID) Values(" + str(id) + ",'" +str(dtype)+ "',"+str(location) + "," + str(state)+","+ str(OVERALL_REVIEW)+ "," + NUM_REVIEWS + "," + str(tech_id) + ")"
         print(query)
         self.db.executeNonQuery(query)
+        query= "update Technician set POINTS=POINTS+2 where ID={}".format(tech_id)
         come=int(int(id)/10000000)
         if (come==5):
             self.add_pc(id,*args)
@@ -94,6 +95,8 @@ class Technician(User):
     def retrieveDemand_Tech(self, techID):
         query = 'SELECT STUDENT_ID, DEVICE_ID, START_TIME, END_TIME, RESERVED, INUSE FROM DEMAND join DEVICE on ID = DEVICE_ID WHERE TECH_ID = {}'.format(techID)
         #print (query)
+        data = self.db.executeQuery(query)
+        query= "update Technician set POINTS=POINTS+4 where ID={}".format(tech_id)
         data = self.db.executeQuery(query)
         for i in range(len(data)):
             data[i] = list(data[i])
