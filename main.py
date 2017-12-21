@@ -287,12 +287,13 @@ def mostdemanded__ic():
 		return m.mostdemanded_ic()
  	
 	
-@app.route('/getmostdemanded_ic')			
+@app.route('/getmostvisited_ic')			
 def mostvisited():
 		return m.mostvisited()
  		
-	
-	
+@app.route('/getcomplains')
+def complains():
+		return m.getcomplain()	
 	
 	
 	
