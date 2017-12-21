@@ -77,7 +77,7 @@ class Manager(User):
     #this function to get the rushhour of demands 
 	
 	def rushhour(self):
-		query = 'select cast(CONVERT(TIME(0), [START_TIME]) AS time)as demand_time, count(*) as demand_count from  DEMAND Group by cast(CONVERT(TIME(0), [START_TIME]) AS time) Order By demand_count'
+		query = 'select cast(CONVERT(TIME(0), [START_TIME]) AS time)as demand_time, count(*) as demand_count from  DEMAND Group by cast(CONVERT(TIME(0), [START_TIME]) AS time) Order By demand_count desc'
 		data = self.db.executeQuery(query)
 		for i in range(len(data)):
 			data[i] = list(data[i])
@@ -86,7 +86,7 @@ class Manager(User):
 
 	 #this function to get the rushday  of demands 	
 	def	crowdedday(self):
-		query='select cast(START_TIME as date) as time, count(*) as demand_count from DEMAND Group by cast(START_TIME as date) Order By demand_count'
+		query='select cast(START_TIME as date) as time, count(*) as demand_count from DEMAND Group by cast(START_TIME as date) Order By demand_count desc'
 		data=self.db.executeQuery(query)
 		for i in range(len(data)):
 			data[i] = list(data[i])
